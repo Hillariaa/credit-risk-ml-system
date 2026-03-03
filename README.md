@@ -1,5 +1,3 @@
-```markdown
-
 #  Credit Risk ML System  
 ### Production-Oriented Machine Learning Service for Credit Default Prediction
 
