@@ -1,109 +1,106 @@
-Credit Risk ML System
-Production-Oriented Machine Learning Service for Credit Default Prediction
-Overview
+#  Credit Risk ML System  
+### Production-Oriented Machine Learning Service for Credit Default Prediction
 
-This project implements a production-style credit risk modeling system, built beyond simple notebook experimentation.
+---
+
+##  Overview
+
+This project implements a **production-style credit risk modeling system**, built beyond notebook experimentation.
 
 It includes:
 
-Reproducible ML training pipeline
+- ✅ Reproducible ML training pipeline  
+- ✅ Threshold optimization under recall constraints  
+- ✅ Model versioning and metadata tracking  
+- ✅ Explainability via feature contribution analysis  
+- ✅ Prediction logging  
+- ✅ Statistical drift detection  
+- ✅ Dockerized deployment with pinned dependencies  
 
-Threshold optimization under recall constraints
+The goal is to simulate how a real-world financial risk system is engineered, monitored, and maintained.
 
-Model versioning and metadata tracking
+---
 
-Explainability via feature contribution analysis
-
-Prediction logging
-
-Statistical drift detection
-
-Dockerized deployment with pinned dependencies
-
-The goal is to simulate how a real-world financial risk system would be engineered, monitored, and maintained.
-
-Problem Statement
+##  Problem Statement
 
 Given applicant financial and behavioral features, predict the probability of default and make an approval/rejection decision based on an optimized threshold.
 
 Unlike demo notebooks, this system focuses on:
 
-Reliability
+- Reliability  
+- Observability  
+- Governance  
+- Deployment discipline  
 
-Observability
+---
 
-Governance
+##  System Architecture
 
-Deployment discipline
-
-System Architecture
 Training Layer
-    ├── Data Split
-    ├── Pipeline (Imputer + Scaler + Logistic Regression)
-    ├── Threshold Optimization
-    └── Metadata + Baseline Stats
+├── Data Split
+├── Pipeline (Imputer → Scaler → Logistic Regression)
+├── Threshold Optimization
+└── Metadata + Baseline Statistics
 
 Model Artifacts
-    ├── credit_model.pkl
-    ├── threshold.json
-    ├── baseline_stats.json
-    └── metadata.json
+├── credit_model.pkl
+├── threshold.json
+├── baseline_stats.json
+└── metadata.json
 
 Serving Layer (FastAPI)
-    ├── /predict
-    ├── /health
-    ├── Explainability
-    └── Prediction Logging
+├── /predict
+├── /health
+├── Explainability
+└── Prediction Logging
 
 Monitoring Layer
-    └── Drift Detection (Z-score)
-Training Pipeline
+└── Drift Detection (Z-score)
+
+---
+
+##  Training Pipeline
 
 The training system:
 
-Uses StandardScaler and LogisticRegression inside a pipeline
+- Uses `StandardScaler` and `LogisticRegression` inside a pipeline  
+- Performs stratified train-test split  
+- Computes ROC-AUC  
+- Searches for a decision threshold under the constraint:
 
-Performs stratified train-test split
+> **Recall ≥ 80%**
 
-Computes ROC-AUC
+It saves:
 
-Searches for a decision threshold under the constraint:
-
-Recall ≥ 80%
-
-Saves:
-
-Model artifact
-
-Selected threshold
-
-Baseline feature statistics
-
-Training metadata (version, timestamp, metrics)
+- Model artifact  
+- Selected threshold  
+- Baseline feature statistics  
+- Training metadata (version, timestamp, metrics)
 
 Example output:
 
 ROC-AUC: 0.9997
 Chosen Threshold: 0.84
 Model Version: c6b126c8
-Explainability
+
+
+---
+
+##  Explainability
 
 The API returns:
 
-Default probability
-
-Decision (approve/reject)
-
-Top risk drivers
-
-Risk-reducing factors
-
-Model version
+- Default probability  
+- Decision (approve/reject)  
+- Top risk drivers  
+- Risk-reducing factors  
+- Model version  
 
 Explainability is computed via scaled logistic regression contributions, enabling inspection of which features push risk upward or downward.
 
 Example response:
 
+```json
 {
   "model_version": "c6b126c8",
   "default_probability": 0.78,
@@ -111,7 +108,10 @@ Example response:
   "top_risk_drivers": [...],
   "risk_reducing_factors": [...]
 }
-Monitoring & Drift Detection
+
+```
+
+#  Monitoring & Drift Detection
 
 Each prediction is logged.
 
@@ -119,13 +119,17 @@ A monitoring script compares live traffic distribution to training baseline usin
 
 Z = |live_mean - baseline_mean| / baseline_std
 
-If Z > 2:
+if
+
+Z > 2
 
 ⚠ Drift Detected
 
 This simulates real-world data shift monitoring in production ML systems.
 
-Model Versioning
+---
+
+#  Model Versioning
 
 Each training run generates:
 
@@ -147,7 +151,9 @@ Auditability
 
 Safe rollback capability
 
-Deployment (Dockerized)
+---
+
+ #  Deployment (Dockerized)
 
 The system is containerized with:
 
@@ -168,7 +174,11 @@ docker run -p 8000:8000 credit-risk-ml-system
 Access:
 
 http://localhost:8000/docs
-Project Structure
+
+---
+
+#  Project Strucure
+
 credit-risk-ml-system/
 ├── data/
 ├── models/              # generated artifacts (gitignored)
@@ -182,7 +192,10 @@ credit-risk-ml-system/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
-Engineering Decisions & Trade-offs
+
+---
+
+#  Engineering Decisions & Trade-offs
 
 Why Logistic Regression?
 Interpretable, stable, and appropriate for structured financial risk modeling.
@@ -202,7 +215,9 @@ Why Dependency Pinning?
 Model serialization is version-sensitive.
 Reproducibility prevents runtime failure.
 
-What This Project Demonstrates
+---
+
+#  What This Project Demonstrates
 
 Production-aware ML system design
 
@@ -216,7 +231,9 @@ Engineering trade-off thinking
 
 This project is intentionally built beyond notebook experimentation to reflect real-world system constraints.
 
-Planned Improvements
+---
+
+#  Planned Improvements
 
 Automated retraining trigger on drift
 
@@ -228,7 +245,10 @@ Structured JSON logging
 
 Metrics dashboard
 
-Author
+---
 
-Hilary
+# Author
+
+Hilary Azimoh
+
 AI Engineering Portfolio Project
