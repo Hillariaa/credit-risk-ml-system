@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+models/*.pkl
+models/baseline_stats.json
+models/threshold.json
+models/metadata.json
+prediction_logs.csv
+.env
