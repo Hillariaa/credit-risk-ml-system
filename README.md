@@ -1,3 +1,5 @@
+```markdown
+
 #  Credit Risk ML System  
 ### Production-Oriented Machine Learning Service for Credit Default Prediction
 
@@ -100,7 +102,8 @@ Explainability is computed via scaled logistic regression contributions, enablin
 
 Example response:
 
-```json
+json:
+
 {
   "model_version": "c6b126c8",
   "default_probability": 0.78,
@@ -109,7 +112,7 @@ Example response:
   "risk_reducing_factors": [...]
 }
 
-```
+---
 
 #  Monitoring & Drift Detection
 
@@ -249,6 +252,6 @@ Metrics dashboard
 
 # Author
 
-Hilary Azimoh
+**Hilary Azimoh**
 
 AI Engineering Portfolio Project
