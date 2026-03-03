@@ -65,7 +65,7 @@ Monitoring Layer
 
 The training system:
 
-- Uses `StandardScaler` and `LogisticRegression` inside a pipeline  
+- Uses StandardScaler and LogisticRegression inside a pipeline  
 - Performs stratified train-test split  
 - Computes ROC-AUC  
 - Searches for a decision threshold under the constraint:
